@@ -2,32 +2,33 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function ListeDevoirs({ setView }) {
-  const [examens, setExamens] = useState([]); // Tableau pour stocker les examens
-  const [loading, setLoading] = useState(true); // Pour savoir si les données sont en cours de chargement
+
+  const [examens, setExamens] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Récupérer les examens de la base de données
     const fetchExamens = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/examens');
-        setExamens(response.data); // Mettre à jour l'état avec les examens
-        setLoading(false); // Arrêter le chargement
+        const response = await axios.get('http://localhost:5000/api/examens/');
+        setExamens(response.data);
       } catch (error) {
         console.error("Erreur lors de la récupération des examens", error);
-        setLoading(false); // Arrêter le chargement en cas d'erreur
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchExamens();
   }, []);
 
-  // Fonction pour publier un examen
-  const publierExamen = async (id) => {
+  const publierExamen = async (idExamen) => {
     try {
-      await axios.put(`http://localhost:5000/api/examens/${id}`, { publie: true });
+      await axios.put(`http://localhost:5000/api/examens/${idExamen}`, { publie: true });
+
+      // ✅ Mettre à jour l'état immédiatement
       setExamens((prevExamens) =>
         prevExamens.map((examen) =>
-          examen.id === id ? { ...examen, publie: true } : examen
+          examen.idExamen === idExamen ? { ...examen, publie: true } : examen
         )
       );
     } catch (error) {
@@ -35,10 +36,9 @@ function ListeDevoirs({ setView }) {
     }
   };
 
-  // Fonction pour consulter la correction proposée par l'IA
-  const consulterCorrection = async (id) => {
+  const consulterCorrection = async (idExamen) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/correction/${id}`);
+      const response = await axios.get(`http://localhost:5000/api/correction/${idExamen}`);
       alert(`Correction proposée : ${response.data.correction}`);
     } catch (error) {
       console.error("Erreur lors de la récupération de la correction", error);
@@ -47,7 +47,7 @@ function ListeDevoirs({ setView }) {
 
   return (
     <div className="liste-devoirs">
-      <h2>Liste des Examen</h2>
+      <h2>Liste des Examens</h2>
 
       {loading ? (
         <p>Chargement des examens...</p>
@@ -55,9 +55,10 @@ function ListeDevoirs({ setView }) {
         <ul>
           {examens.map((devoir) => (
             <li key={devoir.idExamen}>
-              <strong>{devoir.titre}</strong> <br />Durée : {devoir.duree} min
-              <p>Date de début le : {devoir.dateDebut}</p>
-              <p>A rendre avant le : {devoir.dateLimite}</p>
+              <strong>{devoir.titre}</strong> <br />
+              Durée : {devoir.duree} min
+              <p>Date de début : {devoir.dateDebut}</p>
+              <p>Date limite : {devoir.dateLimite}</p>
 
               {devoir.publie ? (
                 <span style={{ color: 'green' }}>Publié</span>

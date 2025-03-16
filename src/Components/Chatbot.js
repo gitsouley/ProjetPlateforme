@@ -7,20 +7,39 @@ function Chatbot() {
     { text: "Bonjour ! Comment puis-je vous aider ?", sender: "bot" },
   ]);
   const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (input.trim() === "") return;
+  
     const newMessages = [...messages, { text: input, sender: "user" }];
     setMessages(newMessages);
     setInput("");
-
-    setTimeout(() => {
+  
+    try {
+      const response = await fetch("http://localhost:5001/api/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ prompt: input }),
+      });
+  
+      const data = await response.json();
+  
       setMessages((prevMessages) => [
         ...prevMessages,
-        { text: "Je suis un chatbot simulé. Un backend sera bientôt intégré !", sender: "bot" },
+        { text: data.response || "Pas de réponse.", sender: "bot" },
       ]);
-    }, 1000);
+    } catch (error) {
+      console.error("Erreur lors de l'envoi du message :", error);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { text: "Erreur de connexion au serveur.", sender: "bot" },
+      ]);
+    }
   };
+  
 
   return (
     <div className="relative w-full mt-6">
@@ -36,6 +55,7 @@ function Chatbot() {
                 {msg.text}
               </div>
             ))}
+            {loading && <p className="text-gray-500">Réflexion en cours...</p>}
           </div>
           <div className="flex mt-2 border-t pt-2">
             <input
@@ -44,9 +64,10 @@ function Chatbot() {
               placeholder="Écrivez un message..."
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
+              onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
+              disabled={loading}
             />
-            <button className="ml-2 p-2 bg-blue-500 text-white rounded-md" onClick={handleSendMessage}>
+            <button className="ml-2 p-2 bg-blue-500 text-white rounded-md" onClick={handleSendMessage} disabled={loading}>
               <PaperAirplaneIcon className="h-5 w-5" />
             </button>
           </div>

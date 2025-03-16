@@ -4,6 +4,7 @@ import CreerDevoir from './CreerDevoir';
 import ListeDevoirs from './ListeDevoirs';
 import ConsulterCopies from './ConsulterCopies';
 import AccederStatistique from './AccederStatistique';
+import { useLocation } from 'react-router-dom';
 
 function EnseignantDashboard() {
   const [view, setView] = useState('creer');

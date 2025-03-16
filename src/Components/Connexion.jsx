@@ -29,7 +29,6 @@ function Connexion() {
       const data = await response.json();
   
       if (response.ok) {
-        //alert(`Bienvenue, ${data.prenom} ${data.nom} !`);
   
         // Redirection selon le rôle
         if (who === "etudiant") {

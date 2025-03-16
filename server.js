@@ -117,16 +117,16 @@ app.post("/login", (req, res) => {
 });
 
 // 🚀 Route pour créer un devoir
-app.post("/api/examens", upload.single("fichier"), (req, res) => {
-  const { matiere, type, dateDebut, dateLimite } = req.body;
+app.post("/api/examens/", upload.single("fichier"), (req, res) => {
+  const { matiere, type, dateDebut, dateLimite, idEnseignant} = req.body;
   const fichier = req.file ? req.file.filename : null; // Vérifie si un fichier a été envoyé
 
   if (!matiere || !type || !dateDebut || !dateLimite) {
     return res.status(400).json({ error: "Tous les champs sont requis !" });
   }
 
-  const sql = `INSERT INTO Examen (titre, type, dateDebut, dateLimite, fichier) VALUES (?, ?, ?, ?, ?)`;
-  db.query(sql, [matiere, type, dateDebut, dateLimite, fichier], (err, result) => {
+  const sql = `INSERT INTO Examen (titre, type, dateDebut, dateLimite, fichier, idEnseignant) VALUES (?, ?, ?, ?, ?, ?)`;
+  db.query(sql, [matiere, type, dateDebut, dateLimite, fichier, parseInt(idEnseignant)], (err, result) => {
     if (err) {
       console.error("Erreur SQL :", err);
       return res.status(500).json({ error: "Erreur lors de l'ajout du devoir" });
@@ -137,7 +137,7 @@ app.post("/api/examens", upload.single("fichier"), (req, res) => {
 
 //Récupérer les examens 
 app.get('/api/examens', (req, res) => {
-  const teacherId = 1; // Prendre l'ID de l'enseignant connecté
+  const teacherId = req.user.id; // Prendre l'ID de l'enseignant connecté
   db.query('SELECT * FROM Examen WHERE idEnseignant = ?', [teacherId], (err, results) => {
     if (err) return res.status(500).json({ message: "Erreur serveur" });
     res.json(results);
