@@ -1,15 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
 
 function ListeDevoirs({ setView }) {
+  const locate = useLocation();
+  const { user } = locate.state || {};
+  const idEnseignant = user?.id;
 
   const [examens, setExamens] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [correction, setCorrection] = useState("");
 
   useEffect(() => {
     const fetchExamens = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/examens/');
+        const response = await axios.get(`http://localhost:5000/api/examens/${idEnseignant}`);
         setExamens(response.data);
       } catch (error) {
         console.error("Erreur lors de la récupération des examens", error);
@@ -37,11 +42,14 @@ function ListeDevoirs({ setView }) {
   };
 
   const consulterCorrection = async (idExamen) => {
+    setCorrection("Génération de la correction en cours...");
     try {
-      const response = await axios.get(`http://localhost:5000/api/correction/${idExamen}`);
-      alert(`Correction proposée : ${response.data.correction}`);
+      const response = await axios.get(`http://localhost:5001/api/correction/${idExamen}`);
+
+      setCorrection(response.data.correction);
     } catch (error) {
       console.error("Erreur lors de la récupération de la correction", error);
+      setCorrection("Erreur lors de la récupération de la correction.");
     }
   };
 
@@ -61,19 +69,24 @@ function ListeDevoirs({ setView }) {
               <p>Date limite : {devoir.dateLimite}</p>
 
               {devoir.publie ? (
-                <span style={{ color: 'green' }}>Publié</span>
+                <span style={{ color: "green" }}>Publié</span>
               ) : (
                 <button onClick={() => publierExamen(devoir.idExamen)}>Publier</button>
               )}
 
-              <button onClick={() => consulterCorrection(devoir.idExamen)}>
-                Consulter la correction IA
-              </button>
+              <button onClick={() => consulterCorrection(devoir.idExamen)}>Consulter la correction IA</button>
 
-              <button onClick={() => setView('consulter')}>Consulter les Copies</button>
+              <button onClick={() => setView("consulter")}>Consulter les Copies</button>
             </li>
           ))}
         </ul>
+      )}
+
+      {correction && (
+        <div className="correction">
+          <h3>Correction IA :</h3>
+          <p>{correction}</p>
+        </div>
       )}
     </div>
   );

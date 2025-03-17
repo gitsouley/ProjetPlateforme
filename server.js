@@ -4,6 +4,7 @@ const cors = require("cors");
 const multer = require("multer");
 const path = require("path");
 require("dotenv").config();
+const fs = require('fs');
 const db = require("./db"); // Importation de la connexion MySQL
 
 const app = express();
@@ -116,6 +117,87 @@ app.post("/login", (req, res) => {
   });
 });
 
+
+
+
+// Récupérer la liste des examens publiés avec le nom du professeur pour eleve
+app.get("/api/exams", (req, res) => {
+  const sql = `
+    SELECT e.idExamen AS id, e.titre AS title, e.fichier AS fileUrl, 
+           e.publie, COALESCE(ens.nom, 'Inconnu') AS teacher 
+    FROM Examen e
+    LEFT JOIN Enseignant ens ON e.idEnseignant = ens.idEnseignant
+    WHERE e.publie = 1
+  `;
+
+  db.query(sql, (err, results) => {
+    if (err) {
+      console.error("❌ Erreur lors de la récupération des examens :", err);
+      return res.status(500).json({ error: "Erreur serveur" });
+    }
+    res.json(results);
+  });
+});
+
+
+
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+app.get('/api/correction/:idExamen', (req, res) => {
+    const { idExamen } = req.params;
+
+    // Vérifier si l'examen a une correction en base de données
+    db.query('SELECT nomCorrige FROM Correction WHERE idExamen = ?', [idExamen], (err, results) => {
+        if (err) return res.status(500).json({ message: "Erreur serveur" });
+
+        if (results.length === 0) {
+            return res.status(404).json({ message: "Aucune correction trouvée. L'IA va générer une correction." });
+        }
+
+        // Vérifier si le fichier existe sur le disque
+        const filePath = path.join(__dirname, 'corrections', results[0].nomCorrige);
+        if (fs.existsSync(filePath)) {
+            return res.sendFile(filePath);
+        } else {
+            return res.status(404).json({ message: "Fichier de correction introuvable. L'IA va générer une correction." });
+        }
+    });
+});
+
+
+
+app.post('/api/ia/correction', (req, res) => {
+    const { idExamen } = req.body;
+
+    // Simuler une correction générée par l'IA
+    const correctionIA = `Correction automatique pour l'examen ${idExamen}: Réponse correcte...`;
+
+    // Définir le nom du fichier
+    const fileName = `ia_correction_${idExamen}.txt`;
+    const filePath = path.join(__dirname, 'corrections', fileName);
+
+    // Sauvegarder la correction dans un fichier
+    fs.writeFileSync(filePath, correctionIA, 'utf8');
+
+    // Enregistrer la correction en base de données
+    db.query('INSERT INTO Correction (nomCorrige, idExamen) VALUES (?, ?)', [fileName, idExamen], (err) => {
+        if (err) return res.status(500).json({ message: "Erreur lors de l'enregistrement de la correction." });
+
+        res.json({ message: "Correction générée et enregistrée.", correction: correctionIA });
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
 // 🚀 Route pour créer un devoir
 app.post("/api/examens/", upload.single("fichier"), (req, res) => {
   const { matiere, type, dateDebut, dateLimite, idEnseignant} = req.body;
@@ -136,8 +218,9 @@ app.post("/api/examens/", upload.single("fichier"), (req, res) => {
 });
 
 //Récupérer les examens 
-app.get('/api/examens', (req, res) => {
-  const teacherId = req.user.id; // Prendre l'ID de l'enseignant connecté
+app.get('/api/examens/:id', (req, res) => {
+  console.log("req.params:", req.params);
+  const teacherId = req.params.id; // Prendre l'ID de l'enseignant connecté
   db.query('SELECT * FROM Examen WHERE idEnseignant = ?', [teacherId], (err, results) => {
     if (err) return res.status(500).json({ message: "Erreur serveur" });
     res.json(results);

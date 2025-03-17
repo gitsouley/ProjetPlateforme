@@ -1,0 +1,1775 @@
+
+
+Math ́ematiques pour
+l’informatique
+(option de 1e ann ́ee du DEUG MIAS)
+D. Montlouis-Calixte, M. Hasler
+Table des mati`eres
+1  Pr ́esentation du cours3
+1.1  Objectif . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   3
+1.2  Dur ́ee et d ́eroulement  . . . . . . . . . . . . . . . . . . . . . . . .   3
+2  Rappels d’analyse4
+2.1  Comparaison asymptotique de suites . . . . . . . . . . . . . . . .   4
+2.1.1  Domination . . . . . . . . . . . . . . . . . . . . . . . . . .   4
+2.1.2
+ ́
+Equivalence grossi`ere . . . . . . . . . . . . . . . . . . . . .   4
+2.1.3  Pr ́epond ́erance (ou n ́egligeabilit ́e) . . . . . . . . . . . . . .   5
+2.1.4
+ ́
+Equivalence (asymptotique) . . . . . . . . . . . . . . . . .   5
+2.1.5  Cas des fonctions . . . . . . . . . . . . . . . . . . . . . . .   6
+2.2  Somme partielle de suites  . . . . . . . . . . . . . . . . . . . . . .   6
+2.2.1  Comparaison avec une int ́egrale . . . . . . . . . . . . . . .   6
+2.2.2  Comparaison avec une suite  ́equivalente . . . . . . . . . .   6
+2.3  Terme g ́en ́eral et somme partielle de suites r ́ecurrentes lin ́eaires .   7
+2.3.1  Suite arithm ́etique . . . . . . . . . . . . . . . . . . . . . .   7
+2.3.2  Suite g ́eom ́etrique  . . . . . . . . . . . . . . . . . . . . . .   7
+2.3.3  Suiteu
+n+1
+=a u
+n
++b. . . . . . . . . . . . . . . . . . . .   7
+2.3.4  Sous- et sur-suites  . . . . . . . . . . . . . . . . . . . . . .   8
+2.4  Exercices  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   8
+3  Notion d’algorithme9
+3.1  Variables et assertions . . . . . . . . . . . . . . . . . . . . . . . .   9
+3.1.1  Variables  . . . . . . . . . . . . . . . . . . . . . . . . . . .   9
+3.1.2  Assertions . . . . . . . . . . . . . . . . . . . . . . . . . . .   9
+3.2  Instructions, pr ́e- et post-conditions  . . . . . . . . . . . . . . . .  10
+3.3  Structures de contrˆole  . . . . . . . . . . . . . . . . . . . . . . . .  11
+3.3.1  S ́equence  . . . . . . . . . . . . . . . . . . . . . . . . . . .  11
+3.3.2  Alternative (si ... alors ...) . . . . . . . . . . . . . . . . . .  12
+3.3.3  Boucle (tant que) . . . . . . . . . . . . . . . . . . . . . . .  12
+3.3.4  Autres structures de contrˆole . . . . . . . . . . . . . . . .  13
+3.4  Algorithme  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  13
+3.4.1  D ́efinition . . . . . . . . . . . . . . . . . . . . . . . . . . .  13
+3.4.2  Exemple : Euclide (calcul du PGCD) . . . . . . . . . . . .  14
+3.4.3  Structure fr ́equente d’algorithmes . . . . . . . . . . . . . .  14
+1
+
+4  Preuve d’un algorithme15
+4.1  Correction partielle . . . . . . . . . . . . . . . . . . . . . . . . . .  15
+4.2  Correction (terminaison) . . . . . . . . . . . . . . . . . . . . . . .  15
+4.3  Invariant de boucle . . . . . . . . . . . . . . . . . . . . . . . . . .  16
+4.4  Preuve de correction partielle . . . . . . . . . . . . . . . . . . . .  16
+4.5  Preuve de la terminaison . . . . . . . . . . . . . . . . . . . . . . .  16
+4.6  Exemple de preuve : tri par insertion . . . . . . . . . . . . . . . .  17
+5  Notion de complexit ́e18
+5.1  Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  18
+5.2  Complexit ́e temporelle et spatiale . . . . . . . . . . . . . . . . . .  18
+5.2.1  Complexit ́e temporelle . . . . . . . . . . . . . . . . . . . .  18
+5.2.2  Complexit ́e spatiale  . . . . . . . . . . . . . . . . . . . . .  19
+5.3  Complexit ́e moyenne, au pire et meilleur des cas  . . . . . . . . .  19
+5.4  Classes de complexit ́e  . . . . . . . . . . . . . . . . . . . . . . . .  20
+6  Exemples de calculs de complexit ́e21
+6.1  Recherche lin ́eaire dans un tableau . . . . . . . . . . . . . . . . .  21
+6.2  Algorithme dichotomique  . . . . . . . . . . . . . . . . . . . . . .  21
+6.3  Recherche dichotomique dans un tableau tri ́e  . . . . . . . . . . .  23
+6.4  Exponentiation enti`ere . . . . . . . . . . . . . . . . . . . . . . . .  23
+6.5  Tri par s ́egmentation . . . . . . . . . . . . . . . . . . . . . . . . .  25
+6.5.1  S ́egmentation d’un tableau  . . . . . . . . . . . . . . . . .  25
+6.5.2  Tri par segmentation . . . . . . . . . . . . . . . . . . . . .  26
+6.6  M ́ethode “diviser pour r ́egner”  . . . . . . . . . . . . . . . . . . .  26
+2
+
+1  Pr ́esentation du cours
+1.1  Objectif
+Ce cours a pour but d’introduire des notions de math ́ematiques s’appliquant
+`a l’informatique, en particulier l’ ́evaluation de la complexit ́e temporelle (coˆut
+en temps d’execution) et spatiale (taille de m ́emoire n ́ecessaire) d’algorithmes.
+Ce sujet ne peut ˆetre abord ́e sans
+– d’une part, des connaissances de base concernant la comparaison asymp-
+totique de suites num ́eriques, et
+– d’autre part, les notions d’algorithme, correction (partielle) et terminaison,
+donc de techniques  ́el ́ementaires de preuve d’algorithme.
+Ces deux sujets sont donc bri`evement rappel ́es resp. introduits dans une
+pr ́esentation sommaire.
+Le cours ne vise pas `a maximiser la quantit ́e de savoir transmis, mais plutˆot
+de faire passer une d ́emarche scientifique dans l’ ́etude des probl`emes. En parti-
+culier, l’accent est mis sur la pr ́esentation de m ́ethodes g ́en ́erales et la mise en
+œuvre d’outils pour r ́esoudre des probl`emes du type consid ́er ́e.
+Enfin, mˆeme si ce cours cherche `a ˆetre le plus autosuffisant possible, il s’ap-
+puie n ́eanmoins sur le b ́en ́efice de formations ant ́erieures en informatique et
+math ́ematiques.
+1.2  Dur ́ee et d ́eroulement
+Cette unit ́e d’enseignement correspond `a un volume horaire de 30h, et sera
+divis ́e en 12 s ́eances de cours d’une heure et demie, et 12 s ́eances de TD d’une
+heure. A chaque s ́eance de TD, trois exercices au maximum, portant sur le cours
+pr ́ec ́edent, seront r ́esolus par les  ́etudiants en travail dirig ́e par l’enseignant.
+3
+
+2  Rappels d’analyse
+2.1  Comparaison asymptotique de suites
+On s’int ́eresse au comportement de suites infinies, c’est-`a-dire de fonctions
+d ́efinies sur une partie infinie deN. Ces propri ́et ́es ne d ́ependent pas des premiers
+termes de la suite. On dira qu’une propri ́et ́e est v ́erifi ́ee `a partir d’un certain
+rang, si elle est v ́erifi ́ee pour tous lesn∈Nsup ́erieurs `a un certainn
+0
+∈N.
+Pour exprimer ceci, on  ́ecrit parfois aussi “(∞)” en dessous d’une relation (par
+exemple,u
+n
+≤
+(∞)
+v
+n
+).
+Parfois il sera utile de faire le changement de variablet= 1/npour se rame-
+ner `a l’ ́etude d’une fonction d ́efinie au voisinage de 0, et de son comportement
+lorsquet >0 tend vers 0, au moyen de techniques telles que les developpements
+limit ́es, par exemple.
+2.1.1  Domination
+Dfinition 2.1Soientu= (u
+n
+)etv= (v
+n
+)deux suites. On dit queuest do-
+min ́ee parvsi, et seulement si, il existe une constantectelle qu’`a partir d’un
+certain rang, on ait|u
+n
+|≤c|v
+n
+|.
+Dans ce cas, on  ́ecrituv(notation de Hardy) ouu=O(v)(((uest un grand
+Odev)); notation de Landau). La relation r ́eciproque est :vdomineu, ce qui
+est parfois not ́ev= Ω(u).
+Proposition 2.2Cette relation est reflexive (u=O(u)pour toute suiteu) et
+transitive (u=O(v)etv=O(w)impliqueu=O(w)). Elle est compatible
+avec la multiplication, et avec l’addition si les suites du membre de droite sont
+`a termes positives.
+(Cela signifie que siu, v, w, zsont des suites `a termes positifs, alorsu=O(v)
+etw=O(z) (en particulierw=z) implique (u+w) =O(v+z). Cependant, si
+les suites ne sont pas `a termes positifs, les termes devetzpeuvent se compenser,
+et la relation peut ne pas ˆetre v ́erifi ́ee pour la somme (par exemple, siz=−v,
+auquel casv+z=o(la suite nulle), qui ne domine que la suite nulle uniquement.
+Dans le cas de suites r ́eelles, on pourrait omettre la valeur absolue dans le
+membre de droite, auquel casvest forc ́ement `a valeurs positifs. Cependant, il est
+plus naturel de mettre des valeurs absolues partout, en vue de la g ́en ́eralisation
+aux suites dans des espaces vectoriels norm ́es.)
+2.1.2
+ ́
+Equivalence grossi`ere
+Dfinition 2.3Soientu= (u
+n
+)etv= (v
+n
+)deux suites. On dit queuest
+grossi`erement  ́equivalente `avsi, et seulement si, il existent des constantes stric-
+tement positivesa, btelles qu’on aita|u
+n
+|≤|u
+n
+|≤b|v
+n
+|`a partir d’un certain
+rang. Dans ce cas, on  ́ecritu= Θ(v).
+4
+
+Remarque 2.4Deux suites sont grossi`erement  ́equivalentes ssi (=si, et seule-
+ment si) chacune domine l’autre, c-`a-d.u=O(v)etv=O(u).
+Proposition 2.5C’est une relation d’ ́equivalence, c-`a-d. elle est reflexive,
+transitive et sym ́etrique (u= Θ(v)impliquev= Θ(u)).
+2.1.3  Pr ́epond ́erance (ou n ́egligeabilit ́e)
+Dfinition 2.6Soientu= (u
+n
+)etv= (v
+n
+)deux suites. On dit queuest
+n ́egligeable devantv, ou quevest pr ́epond ́erante devantu, si, et seulement
+si, pour toutε >0,on ait|u
+n
+|≤ε|v
+n
+|`a partir d’un certain rang. Dans ce cas,
+on  ́ecrituv(notation de Hardy) ouu=o(v)(((uest un petitodev));
+notation de Landau).
+Proposition 2.7Cette relation est transitive (u=o(v)etv=o(w)implique
+u=o(w)). Elle est compatible avec la multiplication, et avec l’addition si les
+suites du membre de droite sont `a termes positives. Clairement,u=o(v)⇒
+u=O(v).
+Proposition 2.8On au=o(v)ssi il existe une suite(ε
+n
+)qui converge vers
+0, telle queu
+n
+=ε
+n
+v
+n
+`a partir d’un certain rang.
+Remarque 2.9Si la suitevest `a valeurs non-nulles `a partir d’un certain rang,
+alorsu=o(v)ssilimu
+n
+/v
+n
+= 0.
+2.1.4
+ ́
+Equivalence (asymptotique)
+Dfinition 2.10Soientu= (u
+n
+)etv= (v
+n
+)deux suites. On dit queuest
+(asymptotiquement)  ́equivalente `avsi, et seulement si,(u−v)est n ́egligeable
+devantu. Dans ce cas, on  ́ecritu∼v.
+Proposition 2.11C’est une relation d’ ́equivalence, c-`a-d. elle est reflexive,
+transitive et sym ́etrique. Evidemment,u∼v⇒u= Θ(v).
+Remarque 2.12Si la suitevest `a valeurs non-nulles `a partir d’un certain
+rang, alorsu∼vssilimu
+n
+/v
+n
+= 1.
+Pour d ́ecrire le comportement asymptotique d’une suite, il suffit souvent de
+connaˆıtre une suite equivalente plus simple. A un coefficient pr`es, cette suite
+pourra presque toujours ˆetre choisie parmi l’echelle
+{
+e
+α n
+n
+β
+(logn)
+γ
+}
+α,β,γ∈R
+,
+chacun des param`etresα, β, γl’emportant sur le suivant au point de vue de la
+croissance. (Plus rarement, on rencontre une croissance encore plus forte, par
+exemple de typen!∼
+√
+2π n(
+n
+e
+)
+n
+(formule de Stirling), ou encore plus faible,
+comme log(log(n)).)
+Exercice 2.1.1Donner des  ́equivalents simples de
+n
+2
++n
+3
+−1
+n−2n
+2
++1
+et
+nlog(n)+1
+√
+n
+, pour
+ensuite comparer leur comportement asymptotique.
+Exercice 2.1.2Montrer quev
+n
+=
+1
+2n
+est un  ́equivalent deu
+n
+=
+√
+n
+2
++ 1−n.
+5
+
+2.1.5  Cas des fonctions
+Lors de l’ ́etude de suites, on omet souvent de pr ́eciser qu’une certaine relation
+est v ́erifi ́ee “au voisinage de l’infini”, c-`a-d. `a partir d’un certain rang. Lorsqu’on
+g ́en ́eralise ce qui pr ́ec`ede `a l’ ́etude du comportement de fonctions au voisinage
+d’un pointa∈R=R∪{±∞}(par exemple, lorsqu’on fait un changement de
+variablet= 1/n), il convient de toujours pr ́eciser ce pointa, soit en ajoutant
+(t→a) apr`es la relation, ou au moins (a) en dessous du symbole de la relation.
+Exemple 2.13Soitf:x7→
+1
+x
+etg:x7→e
+x
+. Alorsf=
+(∞)
+o(g)maisg=
+(0)
+o(f).
+2.2  Somme partielle de suites
+2.2.1  Comparaison avec une int ́egrale
+Dans la suite, on compare la somme partielle,S
+n
+p
+(u) =u
+p
++u
+p+1
++···+u
+n
+,
+d’une suiteud ́efinie paru
+n
+=f(n), `a une int ́egrale de la forme
+∫
+n
+p
+f(x) dx. En
+visualisant les sommes de Riemann defpour la subdivision{x
+i
+=p+i}
+0≤i≤n
+de l’intervalle [p, n+ 1] (aire des rectangles de base [x
+i
+, x
+i+1
+] et de hauteurf(x
+i
+)
+resp.f(x
+i+1
+)), on voit que
+sif↗, alorsu
+p
++u
+p+1
++···+u
+n
+≤
+∫
+n+1
+p
+f(x) dx≤u
+p+1
++···+u
+n+1
+,
+sif↘, alorsu
+p
++u
+p+1
++···+u
+n
+≥
+∫
+n+1
+p
+f(x) dx≥u
+p+1
++···+u
+n+1
+.
+En changeantn+ 1 enn, on obtient :
+Proposition 2.14On consid`ere une suiteu
+n
+=f(n), o`ufest une fonction
+croissantesur[p,∞[. Dans ce cas, on a
+u
+p
++
+∫
+n
+p
+f(x) dx≤u
+p
++u
+p+1
++···+u
+n
+≤
+∫
+n
+p
+f(x) dx+u
+n
+,
+Sifestd ́ecroissante, on a les mˆemes relations avec≥au lieu de≤. Siu
+p
+etu
+n
+sont n ́egligeables devant
+∫
+n
+p
+f(x) dx(lorsquen→ ∞; donc seulement si
+∫
+n
+p
+f(x) dxdiverge), alorsu
+p
++···+u
+n
+∼
+n→∞
+∫
+n
+p
+f(x) dx.
+Exercice 2.2.1Encadrerr
+n
+=
+√
+0 +
+√
+1 +
+√
+2 +···+
+√
+net en d ́eduire un
+ ́equivalent.
+Exercice 2.2.2Donner un  ́equivalent simple des
+n
+= 1 +
+1
+2
++
+1
+3
++···+
+1
+n
+, puis
+dev
+n
+= ln 2 + ln 3 +···+ ln(n).
+2.2.2  Comparaison avec une suite  ́equivalente
+Theorme 2.15Siu
+n
+∼v
+n
+etlim
+∑
+n
+k=p
+u
+n
+=∞,alors
+∑
+n
+k=p
+u
+n
+∼
+∑
+n
+k=p
+v
+n
+.
+Exercice 2.2.3Donner un  ́equivalent des
+n
+= sin 1+sin
+1
+2
++sin
+1
+3
++···+sin
+1
+n
+.
+6
+
+2.3  Terme  g ́en ́eral  et  somme  partielle  de  suites
+r ́ecurrentes lin ́eaires
+Nous ne consid ́erons ici que des suites r ́ecurrentes de premier order, donc de
+la formeu
+n+1
+=f(u
+n
+).
+2.3.1  Suite arithm ́etique
+Proposition 2.16Siuest une suite arithm ́etique de raisonr, c-`a-d.u
+n+1
+=
+u
+n
++r, alors
+u
+n
+=u
+p
++ (n−p)r(=u
+0
++n r)
+et toute somme partielle est  ́egale au nombre de termes multipli ́e par la valeur
+moyenne, soit
+S
+n
+p
+(u) =u
+p
++u
+p+1
++···+u
+n
+=
+u
+p
++u
+n
+2
+(n−p+ 1)∼
+n→∞
+r
+2
+n
+2
+.
+Remarque 2.17On peut consid ́erer en particulier le casp= 1,et retrouver la
+formule pour
+∑
+n
+k=1
+k, `a connaˆıtre par cœur !
+2.3.2  Suite g ́eom ́etrique
+Proposition 2.18Siuest une suite g ́eom ́etrique de raisonq, c-`a-d.u
+n+1
+=
+q u
+n
+, alors
+u
+n
+=u
+p
+q
+n−p
+et la somme partielle est  ́egale `a
+S
+n
+p
+(u) =u
+p
++u
+p+1
++···+u
+n
+=
+u
+p
+−q u
+n
+1−q
+.
+(Pourq= 1, on a une suite constante, doncS
+n
+p
+(u) = (n−p+ 1)u
+p
+.)
+Pour|q|<1,u
+n
+tend vers zero ; pour|q|>1on aS
+n
+p
+(u)∼
+u
+p
+q−1
+q
+n−p+1
+(n→
+∞).
+Exercice 2.3.1Retrouver la formule pour
+∑
+n
+k=p
+q
+k
+, `a connaˆıtre par cœur.
+2.3.3  Suiteu
+n+1
+=a u
+n
++b
+A une telle suite on peut associer l’application affinef(x) =a x+b. Poura=
+1, on retrouve une suite arithm ́etique, pour laquelleu
+n
+=u
+0
++n b. Consid`erons
+donc dans la suite le casa6= 1. L’applicationfposs`ede alors un unique point
+fixe,`=
+b
+1−a
+, et la suitev
+n
+=u
+n
+−`est une suite g ́eom ́etrique de raisonq=a.
+Ainsi,u
+n
+est de terme g ́en ́eral
+u
+n
+=`+ (u
+p
+−`)a
+n−p
+.
+7
+
+2.3.4  Sous- et sur-suites
+Consid ́erons une suite v ́erifiantu
+n+1
+≤f(u
+n
+) pour toutn(resp.u
+n+1
+≥
+f(u
+n
+) pour toutn), o`ufest une fonction monotone qu’on supposeracroissante
+(dans le cas contraire, il suffit de consid ́erer la suiteu
+′
+n
+=−u
+n
+). Siv
+n
+est la
+suite v ́erifiantv
+p
+=u
+p
+etv
+n+1
+=f(v
+n
+) pour toutn≥p, alors on appellev
+n
+une
+sur-suite (resp. sous-suite) de (u
+n
+), et on au
+n
+≤v
+n
+(resp.u
+n
+≥v
+n
+) pour tout
+n≥p.
+2.4  Exercices
+Exercice 2.4.1On consid`ere les suites
+u
+n
+= 1×2
+1
++ 2×2
+2
++···+n2
+n
+=
+n
+∑
+k=1
+k2
+k
+,
+v
+n
+= 3
+1
++ 3
+2
++···+ 3
+n
+=
+n
+∑
+k=1
+3
+k
+.
+Donner un  ́equivalent simple deu
+n
+et dev
+n
+, puis comparer leur croissance.
+(Indication pouru
+n
+: l’ ́ecrire comme2×S
+′
+n
+(2),avecS
+n
+(x) =
+∑
+n
+k=1
+x
+k
+.)
+8
+
+3  Notion d’algorithme
+3.1  Variables et assertions
+3.1.1  Variables
+Un algorithme utilise des donn ́ees m ́emoris ́ees dans desvariables. Il s’agit
+d’une part de variableslocales`a l’algorithme, d’autre part de variables pass ́ees
+enparam`etre`a la proc ́edure. Les valeurs de ces variables peuvent ˆetre modifi ́ees
+par la proc ́edure.
+(Techniquement parlant, les param`etres ne sont pas desvariables, mais des
+valeurstransmises (souvent r ́esultat de l’ ́evaluation d’une expression comme par
+exemple lors d’un appel d’une fonction PGCD(3,6) ou arctan(PI/2)), qui sont
+copi ́es dans des variables locales. Dans certains langages de programmation,
+ces variables ne sont pas modifiables. Mˆeme lorsqu’ils le sont, une  ́eventuelle
+modification par la proc ́edure n’a pas d’effet “`a l’ext ́erieur” (en particulier,
+apr`es l’execution) de la proc ́edure. Pour que la proc ́edure puissemodifierla
+valeur d’une variable “ext ́erieure”, il faut qu’elle connaisse sonadresse, afin d’y
+modifier lecontenu. Cependant, ce m ́ecanisme (de r ́ef ́erence par adresse) peut se
+faire, selon le langage de programmation, de fa ̧con plus ou moins automatique
+et donc “transparente”, c-`a-d. invisible, au niveau du “code” du programme.)
+A chaque appel de l’algorithme, la place pour les variables locales et les
+param`etres est cr ́ee sur une mˆemepile(principe LIFO : last in, first out). La
+pile redescend `a son niveau initial apr`es l’execution de l’algorithme.
+Dans unlangage typ ́e, chaque variable ne peut recevoir qu’untype de
+donn ́ebien pr ́ecis (nombre entier ou rationnel de taille et/ou pr ́ecision maximale
+bien d ́efinie, chaˆıne de caract`ere de longueur fixe ou variable,...), qui doit ˆetre
+d ́eclar ́een mˆeme temps que la variable, avant son utilisation.
+Lorsque l’algorithme d ́ecrit une fonction, il faut ajouter une zone de m ́emoire
+qui re ̧coit ler ́esultatcalcul ́e et “renvoy ́e”. Th ́eoriquement, il serait pr ́ef ́erable
+que l’effet d’un algorithme soit le “renvoi” des r ́esultats, et non deseffets se-
+condairessur des variables “ext ́erieures”, plus difficiles `a contrˆoler et `a  ́etudier.
+Dans la pratique, cela peut n ́ecessiter la cr ́eation d’une copie de l’ensemble des
+donn ́ees qui serait inutilement coˆuteuse (on pensera au tri d’une grande base de
+donn ́ees), et on accepte alors que l’algorithme fasse subir un traitement `a ces
+donn ́ees “in situ”.
+3.1.2  Assertions
+Pendant l’execution de l’algorithme, afin de contrˆoler ce que fait l’algorithme,
+on est conduite `a  ́enoncer des conditions logiques reliant les variables, telles que
+j=i+ 1 oui < j. Ces conditions sont souvent appel ́ees “assertions”. Elles
+portent non sur les variables elles-mˆemes, mais sur les valeurs contenues dans
+ces variables `a un moment donn ́e de l’executeion de l’algorithme. Elles peuvent
+ˆetre vraies ou fausses `a un moment donn ́e de cette execution. Plus g ́en ́eralement,
+on d ́efinit des conditions reliant diff ́erents  ́etats du syst`eme (informatique) `a
+desmoments diff ́erents, par exemple concernant la valeur d’une variableapr`es
+9
+
+execution d’une instruction, en fonction de la valeur d’une autre variableavant
+cette execution.
+Pendant l’execution d’un algorithme, les points (temporels) choisis pour
+l’ ́evaluation de ces assertions sont ceux qui s ́eparent les instructions, voir plus
+bas.
+La d ́efinition et l’ ́etude de l’algorithme conduit `a  ́enoncer des assertions
+vraies, caract ́erisant le but (travail `a effectuer) ou le d ́eroulement de ce trai-
+tement, en vue d’unepreuveou de l’ ́evaluation de lacomplexit ́ede l’algorithme.
+3.2  Instructions, pr ́e- et post-conditions
+Uneinstructionmodifie le syst`eme d’une fa ̧con d ́efinie `a l’avance, pourvu
+qu’avantson execution une certaine assertion (d ́ependante de l’instruction),
+appel ́ee lapr ́e-conditionde cette instruction, soit v ́erifi ́ee. Dans ce cas,apr`es
+son execution, lapost-conditionde l’instruction sera v ́erifi ́ee. Celle-ci d ́ecrit
+donc le “but” de l’instruction (au sens large, car il peut ˆetre utile de pr ́eciser dans
+la post-condition aussi certains effets “secondaires” pas forc ́ement souhait ́ees,
+tels que la modification  ́eventuelle d’une variable ayant une valeur ind ́efinie
+apr`es...). A d ́efaut, on sous-entend que toute variable non mentionn ́ee dans la
+post-condition ne sera pas modifi ́ee ; ce qui est important pour contrˆoler le bon
+d ́eroulement de l’algorithme par la suite.
+On cherchera a distinguer les valeursavantetapr`esl’execution d’une ins-
+truction en introduisant un minimum de notation. A d ́efaut d’autres pr ́ecisions,
+s’il s’agit d’une variablex, on d ́esignera parxsa valeur avant, et parx
+′
+sa valeur
+apr`es l’execution.
+L’affectationest l’instruction fondamentale. Elle est de la forme
+variable <- expression .
+L’execution de l’affectation se d ́eroule en deux temps :
+1.  ́evaluation de l’expression,
+2. transfert de la valeur dans la variable.
+Lapr ́e-conditionconsiste par cons ́equent  ́egalement en deux parties :
+1. d’une part, que l’expression puisse ˆetre  ́evalu ́ee : les variables n ́ecessaires
+convenablement d ́efinies, les fonctions accessibles et leurs arguments dans
+le domaine convenable,...
+2. d’autre part, que la valeur r ́esultant de l’expression soit compatible avec le
+type de la variable (surtout s’il s’agit d’un langage typ ́e), ou qu’elle puisse
+ˆetre (implicitement) convertie en un tel type.
+Lapost-conditionest que la variable contient lavaleur  ́evalu ́ee de l’expres-
+sion,  ́eventuellement convertie (arrondi, ...) selon le type de la variable.
+Exemple 3.1Pour l’affectationx<- x + 1, la post-condition estx
+′
+=x+1,
+(x ́etant la valeur avant, etx
+′
+la valeur apr`es l’execution). La pr ́e-condition est
+10
+
+que la valeur dexsoit bien d ́efinie, et d’un type num ́erique (ou qu’elle puisse
+ˆetre convertie en un tel type), et enfin que la valeur dex+ 1puisse encore ˆetre
+stock ́ee dans la variablex(pas de d ́epassement des valeurs admissibles...). Dans
+la pratique peuvent s’ajouter d’autres aspects, par exemple l’equationx
+′
+=x+ 1
+doit ˆetre consid ́er ́ee modulo la pr ́ecision des donn ́ees. Par exemple, sixest d’un
+type pouvant stocker des rationnels avec une pr ́ecision de 10 chiffres d ́ecimaux,
+alors pourx= 10
+12
+, la valeurx
+′
+co ̈ıncide avec celle dex, dans la limite de la
+pr ́ecision consid ́er ́ee.
+Remarque 3.2La simple  ́evaluation d’une expression par le syst`eme informa-
+tique est une tˆache bien plus complexe qu’on ne puisse penser. Elle comprend
+l’analyse lexique et syntactique, faisant intervenir lapr ́ec ́edence(((priorit ́e)))
+etassociativit ́edes op ́erateurs (par exemple, que1 + 2×3n ́ecessite d’abord
+l’ ́evaluation de2×3, mais1−2−3n ́ecessite en premier l’ ́evaluation de(1−2),
+que−4!signifie−(4!)et non(−4)!,... ; on parle de l’arborescence de l’ex-
+pression, sa valeur  ́etant `a la racine, les embranchements  ́etant les op ́erateurs
+(ou fonctions), auxquels sont attach ́es les arguments par des branches, se ter-
+minant en les feuilles qui sont les constantes). Il y a aussi certaines r`egles
+propres `a chaque langage : par exemple, pour  ́evaluer l’expression bool ́eenne
+((P(x)etQ(x))), siP(x)est faux, on n’est pas oblig ́e d’ ́evaluerQ(x); lors
+d’une telle ́evaluation paresseuse,(((x6= 0et1/x < ε)))ne donne pas d’er-
+reur pourx= 0. Il n’est donc pas forc ́ement une pr ́e-condition que toutes les
+sous-expressions soient bien d ́efinies `a l’avance. Or, l’ ́evaluation deQ(x)pou-
+vant avoir des effet secondaires, il faut bien savoir quel type d’ ́evaluation a lieu.
+Pour la mˆeme raison, il faut ˆetre sˆur de l’ordre dans lequel sont  ́evalu ́es les
+arguments`a une fonction, lorsqu’on  ́ecrit par exemplef(g(x), h(y)).
+Convention.Par prudence, on prendra recours `a un stockage de r ́esultats in-
+term ́ediaires dans des variables temporaires, `a des alternatives (si ... alors ...)
+d ́evelopp ́ees, et `a l’ajout de parenth`eses, partout o`u il pourrait y avoir la moindre
+ambiguit ́e.
+3.3  Structures de contrˆole
+La conception d’un algorithme pr ́esuppose que le syst`eme soit d ́ej`a capable
+d’executer des instructions plus  ́el ́ementaires que l’algorithme lui-mˆeme.
+Unestructure de contrˆolea pour but de contrˆoler le d ́eroulement dans
+le temps des instructionsI
+1
+,I
+2
+,I
+3
+,... de l’algorithme. Elle utilise pour ce faire
+souvent desconditions logiques, ditesexpressions bool ́eennes, not ́eesCci-
+apr`es.
+3.3.1  S ́equence
+Unes ́equenceI
+1
+,I
+2
+,I
+3
+,...I
+n
+d’instructions signifie que ces instructions sont
+`a executer dans l’ordre donn ́e. Parfois, par exemple pour augmenter la lisibilit ́e,
+on regroupe une telle s ́equence dans un bloc :
+11
+
+Faire
+I1 ; I2 ; ... ; In
+Fin faire.
+Au point d’execution suivantI
+k
+, on a bien sˆur la post-condition deI
+k
+, et
+donc apr`es la s ́equence la post-condition deI
+n
+. La pr ́e-condition de la s ́equence
+est la conjonction de la pr ́e-condition deI
+1
+et de ce qu’il faut ajouter `a la
+post-condition de chaqueI
+k
+pour obtenir la pr ́e-condition deI
+k+1
+(1< k < n).
+3.3.2  Alternative (si ... alors ...)
+L’alternative (simple)est de la forme
+Si ( C ) [alors]  I1  Fin si.
+(Le mot-cl ́e “alors” est parfois omis.)
+La post-condition est : post-condition deI
+1
+ou nonC; autrement dit :C⇒
+(post-condition deI
+1
+).
+L’alternative  ́equilibr ́eeest de la forme
+Si ( C ) [alors]  I1  sinon  I2  Fin si.
+La post-condition est : (Cet post-condition deI
+1
+) ou (nonCet post-
+condition deI
+2
+).
+Remarque 3.3Dans les deux cas pr ́ec ́edents,Csignifie la valeuravantl’exe-
+cution, qui n’est pas n ́ecessairement  ́egale `a la valeurC
+′
+apr`es.
+Remarque 3.4On trouve aussi des alternatives multiples, de la forme
+–Si (C
+1
+) alorsI
+1
+sinon si (C
+2
+) alorsI
+2
+... sinonI
+n
+Fin
+si
+–Selon (expr) casvaleur
+1
+:I
+1
+; casvaleur
+2
+:I
+2
+;... Fin selon
+mais nous allons r ́ealiser ces construction `a l’aide d’alternatives simples ou
+ ́equilibr ́ees emboˆıt ́ees.
+3.3.3  Boucle (tant que)
+Le seul type deboucleque nous allons utiliser dans la suite du cours est de
+la forme
+Tant que ( C ) [faire]  I1  Fin tant que.
+(Le mot-cl ́e “faire” est parfois omis ; s’il est pr ́esent, on peut aussi remplacer
+le “Fin tant que” par “Fin faire”.)
+Lapost-conditionest : nonC,  ́egalement appel ́eecondition d’arrˆet, alors que
+Cest ditecondition de poursuite (de la boucle).
+Il existent d’autres types de boucle,
+–FaireI
+1
+tant que (C)
+–FaireI
+1
+jusqu’`a ce que (C)
+12
+
+–Pourvariableallant deinitial`alimite[par pas deincr ́ement]
+faireI
+1
+Fin pour
+–Pour (initialisation;cond.de poursuite;incr ́ementation) faireI
+1
+Fin pour
+–Pour toutvariableelement deexpressionfaireI
+1
+Fin pour tout
+Moyennant des alternatives et/ou autres instructions suppl ́ementaires (ou
+une duplication des instructionsI
+1
+avant le d ́ebut de la boucle), toutes ces
+variations peuvent se r ́ealiser en termes d’une boucletant que. Cette derni`ere
+ ́etant la plus  ́el ́ementaire et simple `a analyser, nous n’allons consid ́erer que ce
+type de boucle.
+Remarque 3.5Les alternatives et les boucles sont appel ́eesinstructions
+complexes, par opposition `a des instructions  ́el ́ementairesI
+1
+,I
+2
+,...
+Remarque 3.6Dans chacune des instructions complexes pr ́esent ́ees dans ce
+chapitre, les symbolesI
+1
+etI
+2
+peuvent repr ́esenter chacun toute une s ́equence
+ou un bloc d’instructions  ́el ́ementaires ou complexes, ce qui peut conduire par
+exemple `a la notion deboucles emboˆıt ́eesetc..
+3.3.4  Autres structures de contrˆole
+Il existent d’autres structures de contrˆole, permettant par exemple
+1. la terminaison de l’algorithme avec renvoi du r ́esultat, ailleurs qu’`a la fin
+de l’algorithme (“return”),
+2. l’interruption et sortie d’une boucle (ou autre structure complexe) `a un
+endroit quelconque, ind ́ependamment de la condition d’arrˆet (“break”),
+ou le “saut” `a l’ ́etape suivante (“continue”),
+3. la continuation de l’algorithme `a un point d’execution quelconque (“go
+to”).
+Nous n’allons pas envisager l’utilisation de telles instructions (que l’on peut
+toujours  ́eviter en modifiant l’algorithme), car elle rend en g ́en ́eral plus difficile
+l’ ́etude des algorithmes.
+3.4  Algorithme
+3.4.1  D ́efinition
+Pour d ́efinir un algorithme il est essentiel de pr ́eciser :
+1. les donn ́ees sur lequel il porte : paramˆetres transmis `a la proc ́edure et/ou
+ ́eventuellement modifi ́es par la fonction,
+2. la pr ́e-condition qui d ́efinit les valeurs autoris ́ees des donn ́ees pour que
+l’algorithme s’ex ́ecute correctement,
+3. la post-conction, qui correpond `a ce que l’algorithme doit faire,
+4. l’algorithme proprement dit, qui consiste en une s ́equence d’instructions
+g ́en ́eralement complexes, c-`a-d. comportant des structures de contrˆole.
+13
+
+3.4.2  Exemple : Euclide (calcul du PGCD)
+L’algorithme suivant porte sur les donn ́ees :metn.
+Pr ́e-condition :metnsont deux entiers positifs.
+Post-condition : la variableP GCDcontient le PGCD demet den. (On
+utilisea, betrcomme variables locales dont on ne pr ́ecise pas la valeur finale.)
+L’algorithme :
+a <- max( m, n ) ; b <- min( m, n )
+Tant que ( b > 0 )
+r <- Reste_division( a, b )
+a <- b
+b <- r
+Fin tant que
+PGCD <- a
+(On aurait pu renoncer `a la premi`ere ligne, et remplacera, bparm, n.)
+3.4.3  Structure fr ́equente d’algorithmes
+Les algorithmes  ́etudi ́es dans ce cours seront souvent divis ́es en trois parties :
+1. une initialisation, (dans l’exemple ci-dessus, ce qui pr ́ec`ede le “Tant que”)
+2. une boucle, (ci-dessus, les lignes du “tant que” jusqu’au “fin tant que”)
+3. une finalisation (ci dessus, l’affectation de la variable PGCD).
+(En principe, tout algorithme peut se mettre sous cette forme.)
+Lorsque l’algorithme ne fait pas appel `a lui-mˆeme, on l’appelle “it ́eratif”,
+chaque  ́etape de l’execution (de la suite des instructions `a l’int ́erieur) de la
+boucle  ́etant appel ́ee uneit ́eration.
+Algorithmes r ́ecursifsLes algorithmes faisant appel `a eux-mˆemes sont dits
+r ́ecursifs. On pourrait r ́ealiser tout algorithme sous forme r ́ecursive, sans utili-
+ser de boucle. Cependant, un algorithme r ́ecursif est g ́en ́eralement plus difficile `a
+ ́etudier et plus coˆuteux `a executer (complexit ́e spatiale, voir le chapitre suivant)
+que la version it ́erative.
+Exemple 3.7Le calcul du PGCD se r ́ealise de mani`ere r ́ecursive comme suit :
+PGCD( m, n ):  Si ( m = 0 ) alors PGCD <- n
+sinon PGCD <- PGCD( Reste_division( n,m ), m ).
+Remarque 3.8On pourrait aussi remplacerReste
+division( n,m )par la
+valeur absolue|n-m|. En effet, simetnsont strictement positifs, on diminue
+strictement au moins l’un des param`etres, en passant de(m, n)`a(|n−m|, m)
+(exercice : d ́emontrer ceci par disjonction de cas). Sin= 0, on calcule
+PGCD(m, m), puis PGCD(0, m), ce qui donnem. Ainsi l’algorithme s’arr`ete
+forc ́ement au bout d’un nombre fini de r ́ecursions. Il suffit donc de v ́erifier que
+PGCD(m, n) =PGCD(|n−m|, m), pour ˆetre sˆur que le r ́esultat est correct.
+14
+
+4  Preuve d’un algorithme
+4.1  Correction partielle
+Dfinition 4.1Un algorithme estpartiellement correctssi, lorsqu’il s’arrˆete,
+il a fait ce qu’il doit faire.
+Exemple 4.2L’algorithme suivant cherche la racine car ́ee d’un nombrea:
+n <- 0
+tant que ( n*n != a ) /* != signifie : non egal */
+n <- random(0,a) /* nombre entier aleatoire entre 0 et a */
+fin tant que
+RacineCarree <- n
+Cet algorithme est partiellement correct, car il ne s’arrˆete que si la condition
+n
+2
+6=aest fausse, donc sin
+2
+=aest v ́erif ́ee ; le r ́esultatRacineCarree=nest
+donc  ́egal `a la racine car ́ee dea.
+Un algorithme partiellement correct peut ne pas ˆetre satisfaisant, car on n’a
+pas la garantie qu’il s’arrˆetera. Dans l’exemple pr ́ec ́edent, il ne s’arrˆetera jamais,
+sian’est pas le carr ́ee d’un entier.
+4.2  Correction (terminaison)
+Dfinition 4.3Un algorithme estcorrectssi, il est partiellement correctetil
+s’arrˆete n ́ecessairement, lorsque les donn ́ees initiales v ́erifient sa pr ́e-condition ;
+on parle alors determinaison.
+Dans ce cas, on est sˆur qu’il fera ce qu’il doit faire. Cependant, l`a encore, on
+n’a impos ́e aucune contrainte sur le nombre d’it ́erations possibles, ni sur la place
+de mˆemoire disponible pour stocker des variables. Lors de l’impl ́ementation sur
+un ordinateur ayant une vitesse de calcul et une m ́emoire finie, cela pourra
+durer arbitrairement longtemps, ou devenir impossible manque de m ́emoire.
+D’o`u l’int ́erˆet de l’ ́etude de lacomplexit ́ede l’algorithme, au chapitre suivant.
+Exercice 4.2.1D ́emontrer que l’algorithme suivant est correct.
+Il doit chercher la partie enti`ere de la racine carr ́ee d’un r ́eelapositif.
+n <- 0
+Tant que ( n*n <= a ) /* inferieur ou egal */
+n <- n + 1
+Fin tant que
+RacineCarree <- n-1
+15
+
+4.3  Invariant de boucle
+La preuve d’un algorithme est facilit ́ee par la mise en  ́evidence d’une assertion
+dite invariant de boucle.
+Dfinition 4.4Une assertion est un invariant d’une boucle `a un point d’execu-
+tionαdonn ́e, si lorsqu’elle est vraie enα, alors au passage suivant, s’il a lieu,
+au mˆeme pointαde la boucle, elle sera encore vraie.
+Le pointαd’execution choisi est souvent celui qui pr ́ec`ede la premi`ere ins-
+truction `a l’int ́erieur de la boucle. Lorsque l’ ́evaluation de la conditionCde
+continuation de la boucle ne modifie pas l’ ́etat du syst`eme (ce que nous allons
+supposer dans la suite et nous efforcer de respecter lors de la conception d’algo-
+rithmes), alors le syst`eme est au pointαdans le mˆeme  ́etat qu’au pointβ, situ ́e
+apr`es la derni`ere instruction de la boucle, lors du passage pr ́ec ́edent.
+4.4  Preuve de correction partielle
+Ayant trouv ́e un invariantIqui repr ́esente le travail progressivement fait
+par la boucle pour atteindre le but de l’algorithme, on proc`ede en 3  ́etapes :
+1. On prouve, grˆace `a la pr ́e-condition, qu’`a l’issue de l’initialisation,Iest
+v ́erifi ́ee.
+2. On supposeIv ́erifi ́e enαet on prouve queIest v ́erifi ́ee enβ. C’est donc
+un invariant de boucle.
+3. On prouve que la condition d’arrˆet jointe `a l’invariantIentraˆıne la post-
+condition, apr`es la finalisation.
+4.5  Preuve de la terminaison
+Elle s’appuie sur
+– la mise en  ́evidence d’une expression qui progresse de fa ̧con strictement
+monotone `a chaque tour de boucle, par exemple par incr ́ementation ou
+d ́ecr ́ementation fixe,
+– le fait que le franchissement d’un certain seuil de cette expression provoque
+la condition d’arrˆet de la boucle.
+Exemple 4.5Dans beaucoup de cas simples, la condition d’arrˆet est de la
+formeA > B, et la diff ́erenceA−Baugmente d’une unit ́e `a chaque execu-
+tion de la boucle.
+16
+
+4.6  Exemple de preuve : tri par insertion
+On suppose donn ́e un tableaut`an ́el ́ements (n≥1) tous comparables entre
+eux. On souhaite le trier, c-`a-d. r ́earranger les  ́el ́ements en ordre croissant.
+On consid`ere ici la m ́ethode dutri par insertion, qui consiste `a mettre,
+pouriallant de 2 `an, l’ ́el ́ementt[i] `a “sa” place parmi les premiersi ́el ́ements,
+en d ́ecalant d’une case vers la droite ceux parmit[1..i−1] sup ́erieurs `at[i]. Soit :
+i <- 2
+Tant que ( i <= n )
+Inserer_a_sa_place_parmi_les_precedents_l_element( i, t )
+i <- i+1
+Fin tant que
+1. L’assertion((t[1..i−1] est tri ́e))est l’invariant de boucle : elle est v ́erif ́ee
+initialement, pouri= 2, et pourvu que l’insertion se fasse correctement,
+on peut affirmer que sous cette pr ́e-condition, apr`es chaque  ́etape, la zone
+t[1..i] sera tri ́ee, donc que l’invariant sera v ́erif ́e pouri
+′
+=i+ 1, c-`a-d. `a
+nouveau en d ́ebut de l’ ́etape suivante.
+2. L’algorithme ne termine que si la condition d’arrˆeti > nest v ́erifi ́ee ; on
+a alorsi=n+ 1 (l’incr ́ementation dein’ayant lieu que sii≤n), et donc
+quet[1..n] est tri ́e : l’algorithme est partiellement correct.
+3. L’incr ́ementation deitant quei≤nimplique qu’`a terme la condition
+d’arrˆeti > nsera v ́erifi ́ee : l’algorithme est donc correct.
+Pour ˆetre complet, d ́etaillons le (sous-)algorithme
+Inserer_a_sa_place_parmi_les_precedents_l_element( i, t ):
+x <- t[i]    /* sauvegarde pour decalage de t[i-1] vers t[i] */
+j <- i - 1
+Tant que ( j > 0 et t[j] > x )
+t[j+1] <- t[j] /* decaler l’element courant d’une place */
+j <- j - 1     /* (dont l’occupant a deja ete copie avant). */
+Fin tant que
+t[j+1] <- x     /* t[j] <= x ou j = 0 (tout est deja decale) */
+Remarque 4.6On aurait pu
+– v ́erifier au d ́ebut sit[i−1]≤t[i], auquel cas rien n’est `a faire ; ou encore
+`a la fin, sij+ 1est vraiment diff ́erent dei,
+– utilisericomme variable locale `a la place dej(on ne peut alors plus
+simplement copier ce((code))dans la boucle principale du tri par insertion)
+–  ́eviter la sauvegardex←t[i]et l’insertion finale dex, en faisant `a la place
+des permutations successives des  ́el ́ementst[j]ett[j+ 1]; or, une telle
+permutation est en g ́en ́eral r ́ealis ́ee sous la formex←t[j],t[j]←t[j+ 1],
+t[j+ 1]←x, et n ́ecessite alors trois fois plus d’op ́erations  ́el ́ementaires !
+– faire d’abord la recherche de la “bonne place”, et ensuite s ́epar ́ement le
+d ́ecalage puis l’insertion ; ici il nous a paru plus simple de faire ces deux
+op ́erations progressivement et simultan ́ement.
+17
+
+5  Notion de complexit ́e
+5.1  Introduction
+Dans la pratique, le fait qu’on algorithme soit correct ne suffit pas pour ˆetre
+sˆur qu’il fournira le r ́esultat souhait ́e. En effet, son execution peut exiger trop de
+temps ou de m ́emoire que nous n’avons `a notre disposition. Mˆeme un algorithme
+qui paraˆıt simple `a l’homme, peut ˆetre trop complexe pour la machine du point
+de vue de l’execution. Ceci est surtout le cas pour des algorithmes r ́ecursifs.
+Dans le monde informatique contemporain, certains types de donn ́ees ont
+atteint des grandeurs impressionants :
+1. nombre de points sur une page A4 `a 360ppp : 12 000 000
+(ppp = points par pouce, en anglais : dpi = dots per inch)
+2. nombre de pages web recens ́ees par google en 2005 : 9 000 000 000
+3. nombre de caract`eres que peut stocker un disque dur : 50 000 000 000
+(un caract`ere correspondant `a un octet, unit ́e de m ́emoire pouvant prendre
+256 valeurs diff ́erentes)
+Ainsi il est essentiel de pouvoir juger l’efficacit ́e d’algorithmes lorsque les
+donn ́ees ont une taille importante ; pour cela il faut disposer d’outils permettant
+de mesurer leur complexit ́e.
+5.2  Complexit ́e temporelle et spatiale
+5.2.1  Complexit ́e temporelle
+Dfinition 5.1Lacomplexit ́e temporellecorrespond au temps que prend l’al-
+gorithme pour s’executer, en fonction d’un entiernrepr ́esentant la taille de la
+donn ́ee qui lui a  ́et ́e transmise.
+Certaines instructions ont des coˆuts temporels n ́egligeables, telles que, par
+exemple, l’incr ́ementation ou comparaison d’entiers d’une certaine taille maxi-
+male caract ́eristique du microprocesseur (de l’ordre de 2
+31
+≈10
+9
+ou 2
+63
+≈10
+20
+actuellement). D’autres, comparant, transf ́erant ou manipulant des objets com-
+plexes (chaˆınes de caract`eres, tableaux, graphes...) sont beaucoup plus couteux.
+On fait g ́en ́eralement l’approximation qu’untraitement  ́el ́ementaired’un
+objet caract ́eristiquede l’algorithme ait un temps d’execution moyen qui
+puisse servir d’unit ́e de temps. Seulement exceptionellement, il sera n ́ecessaire
+distinguer deux ou plusieurs diff ́erents traitements possibles pour ces objets :
+stockage, comparaison, op ́eration(s) arithmetique(s),...
+Pour  ́evaluer la complexit ́e d’un algorithme, il suffit dans la plupart des cas
+de ne consid ́erer que les traitements le plus coˆuteux, ex ́ecut ́es de nombreuses fois,
+soit `a l’int ́erieur d’une boucle, soit de mani`ere r ́ecursive. par les algorithmes..
+La complexit ́e temporelle devient alors le nombre de fois que sont execut ́es ces
+traitements.
+18
+
+5.2.2  Complexit ́e spatiale
+Dfinition 5.2Lacomplexit ́e spatialemesure l’espace m ́emoire n ́ecessaire `a
+l’algorithme pour s’executer, en fonction d’un entiernrepr ́esentant la taille de
+la donn ́ee qui lui a  ́et ́e transmise.
+Dans le cas d’un algorithme non r ́ecursif, la taille des variables locales reste
+g ́en ́eralement limit ́ee. Par contre, dans la cas d’un algorithme r ́ecursif, le mˆeme
+espace pour les variables locales doit ˆetre r ́eserv ́e sur unepile`a chaque appel
+r ́ecursif. Le niveau maximal d’appels r ́ecursifs((emboˆıt ́es))d ́eterminera alors la
+complexit ́e spatiale de l’algorithme.
+S’il s’agit d’un traitement de donn ́ees tr`es volumineuses en m ́emoire, elles ne
+seront g ́en ́eralement pas stock ́es comme variable locale sur la pile : leur place est
+alors allou ́ee ailleurs dans la m ́emoire de l’ordinateur (voire dans une base de
+donn ́ees externe), et seul un lien (pointeur, nom de fichier ou autre identifiant)
+vers cette m ́emoire est stock ́e comme variable locale et transmis lors d’appels
+r ́ecursifs ou `a d’autres fonctions. Dans ce cas, la complexit ́e spatiale doit aussi
+tenir compte de cette m ́emoire. On distinguera alors la m ́emoire (maximale) tem-
+porairement n ́ecessaire pendant l’execution de l’algorithme (et lib ́er ́ee apr`es), et
+la m ́emoire occup ́ee de fa ̧con persistante, apr`es l’execution, par le r ́esultat du
+traitement.
+Dans ce cours, nous n’allons pas  ́etudier des cas o`u il y a une telle allocation
+de m ́emoire en dehors des variables locales.
+5.3  Complexit ́e moyenne, au pire et meilleur des cas
+La complexit ́e ne d ́epend que de l’entiernqui repr ́esente la taille de la
+donn ́ee trait ́ee par l’algorithme. Elle varie selon cette donn ́ee de taillenentre
+une valeur maximale, ditecomplexit ́e au pire des cas, et une valeur minimale,
+ditecomplexit ́e au meilleur des cas.
+Si les donn ́ees de taillenprennent des valeurs (v
+i
+)
+i∈I
+avec des probabilit ́es
+(p
+i
+)
+i∈I
+, lacomplexit ́e en moyenneest donn ́ee par
+C
+m
+(n) =
+∑
+i∈I
+p
+i
+C(v
+i
+),
+o`uC(v
+i
+) est la complexit ́e pour la donn ́eev
+i
+. En particulier, on aurap
+i
+=
+f
+i
+/
+∑
+f
+k
+, sif
+i
+est la fr ́equence d’apparition dev
+i
+, et la somme ce ces fr ́equences
+est finie, et encore plus simple,p
+i
+= 1/N, s’il n’y a qu’un nombre finiNde
+valeurs possible, ayant tous la mˆeme fr ́equence.C
+m
+(n) est donc la moyenne des
+complexit ́es possibles, pond ́er ́ees par leur probabilit ́e, pour des donn ́ees de taille
+n.
+19
+
+5.4  Classes de complexit ́e
+Il n’est pas n ́ecessaire ni utile de connaˆıtre la fonction de complexit ́e tr`es
+pr ́ecis ́ement. La capacit ́e et la puissance des ordinateurs variant d’un facteur 1
+`a 100, mais gu`ere plus (sauf cas exceptionnels, tels que ordinateurs de poche par
+rapport `a des supercalculateurs), un facteur constant dans la complexit ́e d’un
+algorithme ne modifie pas le crit`ere d’arrˆet en temps raisonnablent limit ́e ou
+non. Ainsi il suffit, pour  ́evaluer la complexit ́e, de d ́eterminer sa classe d’ ́equi-
+valence grossi`ere :
+ClasseΘ(C)Commentaire
+logarithmiquelog(n)tr`es rapide
+lin ́eairentr`es rapide
+quasilin ́eairenlognrapide
+quadratiquen
+2
+moyennement rapide
+polynˆomialen
+α
+(α >2)
+faisable sur ordinateur
+pournpas trop grand
+exponentiellee
+α n
+=k
+n
+(α >0, k >1)infaisable mˆeme pour des valeurs
+factorielle ou plusn!
+α
+, e
+f(n)
+(f
+′
+→∞)pas tr`es grandes den
+Exercice 5.4.1On suppose que la fonction de complexit ́ec(.)d’un algorithme
+v ́erifiec(1) = 1et pour toutn∈N:c(n)≤2c(n÷2) + 1(o`un÷2signifie la
+partie enti`ere de
+n
+2
+).
+1. Majorerc(100), en appliquant l’in ́egalit ́e de mani`ere r ́ecursive.
+2. Majorerc(2
+p
+), en cherchant une sur-suite(v
+0
+, v
+1
+, ....)deu
+p
+=c(2
+p
+).
+3. Montrer que cette majoration est valable pour tout entiernau lieu de2
+p
+.
+[Solution :c(n)≤2n−1, complexit ́e lin ́eaire.]
+20
+
+6  Exemples de calculs de complexit ́e
+6.1  Recherche lin ́eaire dans un tableau
+Pour chercher une valeurxdans un tableauTindex ́e de 1 `an, en l’absence
+d’hypoth`ese suppl ́ementaire, il faut comparerT[i] `axpour toutis’incr ́ementant
+de 1 `an, tant queT[i]6=x.
+Pour  ́evaluer la complexit ́e temporelle de cet algorithme, on ne comptera
+que les comparaisons dexauxT[i], suppos ́ees pr ́epond ́erantes devant les autres
+instructions (incr ́ementation dei,...).
+On a alors :
+– complexit ́e au meilleur des cas = 1
+– complexit ́e au pire des cas = n
+En supposant que chaque case du tableau ne peut prendre quepvaleurs, il
+y ap
+n
+tableaux possibles, dont exactement
+(p−1)
+k−1
+.p
+n−k
+tableaux o`uxapparaˆıt pour la premi`ere fois dans la case
+T[k], et (p−1)
+n
+tableaux o`uxn’apparaˆıt pas. On montre alors que
+– complexit ́e en moyenne∼p, lorsquen→∞.
+Remarque 6.1Cet exemple est un peu acad ́emique dans la mesure o`u, sipest
+raisonnablement petit, il suffirait de coder les differents  ́el ́ements par un entier,
+auquel cas la comparaison ne n ́ecessite pas plus de temps que la manipulation
+de la variable de boucle. Dans le cas contraire (ptr`es grand, par exemple les
+valeurs possibles de nombres d ́ecimaux dans une pr ́ecision donn ́ee, typiquement
+p≈2
+32
+≈10
+10
+oup≈2
+64
+≈10
+20
+), la complexit ́e au pire des cas(=n)sera
+toujours largement inf ́erieure `a la limite de la complexit ́e “moyenne”(=p), car
+on n’aura pratiquement jamais un tableau `an≥p ́el ́ements (la m ́emoire d’un
+disque dur entier  ́etant limit ́e au stockage de l’ordre den≈10
+9
+tels nombres).
+6.2  Algorithme dichotomique
+On consid`ere ici le cas fr ́equent d’un algorithme de la forme
+/* Debut */
+Initialisation
+/* Boucle */
+Tant que ( C )
+/* point alpha */
+Instructions
+/* point beta */
+Fin tant que
+/* Fin de boucle */
+Finalisation
+/* Fin */
+21
+
+Supposons qu’on puisse d ́efinir une expressionN, en fonction des variables,
+telle que
+– lorsqueNpasse de la valeurN
+p
+, au pointα(avant le d ́ebut des instructions
+dans la boucle), `a la valeurN
+p+1
+, au pointβ(apr`es les instructions dans
+la boucle), alors on aN
+p+1
+≤N
+p
+/2+c(avec un certaincfix ́e, par exemple
+c= 1),
+– la conditionN
+p
+< s(o`us= sup{s|s=s/2 +c}) est  ́equivalent `a l’arr`et
+(donc `a la n ́egation de la conditionCde poursuite) de la boucle
+– la valeur initialeN
+0
+=ndeNrepr ́esente la taille des donn ́ees
+et que
+– le temps d’execution des Instructions de la boucle ne varie pas consid ́era-
+blement et sera donc ˆetre pris comme unit ́e de temps,
+– le temps pour l’initialisation et la finalisation pourra ˆetre n ́eglig ́e.
+Alors,N
+p+1
+−S≤(N
+p
+−S)/2,o`uS=S/2 +c, d’o`uN
+p
+−S≤(n−S)/2
+p
+,
+et lorsque ceci sera inf ́erieur `acpour la premi`ere fois, la condition d’arrˆet sera
+atteinte en d ́ebut de la boucle suivante, et la valeur depest un majorant de la
+complexit ́e temporelle de l’algorithme. Or, (n−S)/2
+p
+≥1 donne une complexit ́e
+≤p≤log
+2
+(n−S) =O(log
+2
+(n)). On a donc montr ́e
+complexit ́e =O(log
+2
+(n)).
+Si de plus on a
+– lorsqueNpasse deN
+p
+au pointα`aN
+p+1
+au pointβ, alorsN
+P+1
+≥
+(N
+p
+/2)−d(avec par exempled= 1)
+alors la relation inverse((complexit ́e domine log
+2
+(n)))est obtenue de mˆeme
+mani`ere, d’o`u l’ ́equivalence grossi`ere
+complexit ́e = Θ(log
+2
+(n)).
+Ce type d’algorithme tient son nom de l’exemple type qui sont les algorithmes
+bas ́ees sur la m ́ethode consistant `a diviser un travail en deux moiti ́es  ́egales et
+`a s’appliquer recusivement `a chacune des moiti ́es. Un exemple sera discut ́e en
+d ́etail dans le paragraphe suivant ; voir aussi la m ́ethode “diviser pour r ́egner”
+`a la fin du cours.
+22
+
+6.3  Recherche dichotomique dans un tableau tri ́e
+On souhaite `a nouveau chercher une valeurxdans un tableauT[i..j], mais
+on suppose maintenant ce tableau tri ́e. La recherche dichotomique consiste alors
+`a le diviser (sii < j) en deux moiti ́esT[i..k−1] etT[k+ 1..j], et `a continuer la
+recherche dans la moiti ́e choisie apr`es comparaison dexavecT[k]. On montre
+alors que l’algorithme est dichotomique au sens pr ́ec ́edent (avecn=j−i).
+Pour obtenir un r ́esultat int ́eressant au cas o`u la valeur dexn’est pas
+pr ́esente dansT[1..n], pr ́ecisons que l’algorithme doit trouver laplacedu dernier
+ ́el ́ement ́egal ou inf ́erieur`ax(o`u 0 s’il n’y en a pas) : ainsi on sait que
+–xest pr ́esent dans le tableau⇐⇒place >0 ett[place] =x
+– pour ins ́ererxdans le tableau (qui doit rester tri ́e), il faut n ́ecessairement
+d ́ecaler tous les  ́el ́ements d’indicek > placed’une case vers la droite,
+– on a toujoursplace∈[[0, n]].
+D’o`u l’algorithme suivant :
+Si ( x < t[1] ) alors place <- 0
+sinon:
+Si ( x >= t[n] ) alors place <- n
+sinon:
+i <- 1 ; j <- n
+Tant que ( i+1 < j )  /* invariant: t[i] <= x < t[j] */
+k <- (i+j) div 2
+Si ( t[k] > x ) alors j <- k
+sinon i <- k
+Fin si      /* invariant: t[i] <= x < t[j] */
+Fin tant que
+place <- i   /* post-condition:                     */
+Fin si          /*       (place > 0 => t[place] <= x)  */
+Fin si             /*    et (place < n => t[place+1] > x) */
+On voit qu’`a chaque  ́etape,i < k < j,donc l’intervalle est strictement r ́eduit,
+d’o`u la terminaison. A l’arrondi pr`es, sa taille est divis ́e par 2 `a chaque  ́etape,
+d’o`u :
+Complexit ́e, au pire des cas, de la recherche dichotomique
+dans un tableau de taillen:
+C(n)∼log
+2
+(n)    (n→∞).
+6.4  Exponentiation enti`ere
+L’algorithme suivant donne une m ́ethode efficace pour calculer une puissance
+enti`erem
+n
+d’un objetmpour lequel une multiplication est d ́efinie (nombre
+d ́ecimal, matrice, polynˆome...). On  ́evalue le coˆut en terme de multiplications
+d’objets du type dem, sachant qu’une telle multiplication (de matrice, po-
+lynˆome, nombre d ́ecimal) pourra n ́ecessiter un nombre plus ou moins important
+de multiplications et/ou autres op ́erations plus  ́el ́ementaires.
+23
+
+L’algorithme dichotomique pr ́esent ́e ci-dessous sera d’une complexit ́e de
+log
+2
+n. Il s’agit en effet d’utiliser l’ ́ecriture denen base 2,
+n=a
+0
++a
+1
+2 +a
+2
+2
+2
++a
+3
+2
+3
++···+a
+q
+2
+q
+d’o`u la formule
+m
+n
+=m
+a
+0
+(
+m
+2
+)
+a
+1
+(
+m
+2
+2
+)
+a
+2
+(
+m
+2
+3
+)
+a
+3
+···
+(
+m
+2
+q
+)
+a
+q
+o`u lesa
+i
+sont les restes successifs de la division denpar 2 (soita
+i
+∈{0,1}) et les
+puissancesm
+2
+i
+seront calcul ́es comme carr ́e dem
+2
+i−1
+. Ceci donne l’algorithme
+suivant :
+p <- 1
+Tant que ( n > 0 )
+Si ( n impair )
+p <- p * m
+Fin si
+m <- m * m /* double la puissance de m_initial */
+n <- n div 2 /* div. entiere */
+Fin tant que
+puissance <- p
+L’invariant de boucle est :p·m
+n
+=m
+n
+0
+0
+, o`u les valeurs index ́ees par 0 cor-
+respondent aux valeurs initiales, c-`a-d. aux valeurs de la formule math ́ematique
+ci-dessus.
+Dmonstration.L’invariant est v ́erifi ́e initialement, lorsquep= 1, m=m
+0
+,
+n=n
+0
+. Montrons que lorsqu’il est v ́erifi ́e en d ́ebut de boucle, au pointαjuste
+avant ou apr`es ”tant que”, alors il est v ́erifi ́e en fin de boucle, au pointβjuste
+avant ”fin tant que”. On note avec une prime les grandeurs au pointβ, et sans
+prime les valeurs au pointα. On a alors
+p
+′
+=p m
+a
+, m
+′
+=m
+2
+, n= 2n
+′
++a,o`ua∈{0,1},
+p m
+n
+=p m
+2n
+′
++a
+=p m
+a
+(m
+2
+)
+n
+′
+=p
+′
+(m
+′
+)
+n
+′
+(CQF D).
+
+Lorsque l’algorithme termine, on an= 0 (carnne prend que des valeurs
+enti`eres positives), doncp= (m
+0
+)
+n
+0
+; ainsi l’algorithme est partiellement correct.
+D’autre part, tant quenest strictement positif, il sera divis ́e par 2, ce qui
+diminue strictement sa valeur. Ceci implique que l’algorithme terminera au bout
+d’un nombre fini d’it ́erations de la boucle. L’algorithme est donc correct.
+Le nombre d’it ́erations avant que la division denpar 2 ne donne z ́ero est  ́egal
+au nombreqci-dessus, qui est la plus haute puissance de 2 inf ́erieure ou  ́egale `a
+n, ou encore la partie enti`ere (et donc  ́equivalent, pourn→∞) de log
+2
+(n). La
+complexit ́e temporelle de l’algorithme est donc celle de log
+2
+(n).
+24
+
+6.5  Tri par s ́egmentation
+Commen ̧cons par un exercice pour motiver la suite :
+Exercice 6.5.1Etudier la complexit ́e temporelle du tri par insertion.
+Indication : v ́erifier qu’`a l’ ́etapei, il y a entre 1 eti−1op ́erations (comparaison
++ d ́ecalage) n ́ecessaires ; en d ́eduire qu’en moyenne, la complexit ́e est quadra-
+tique ; seulement au meilleur des cas (nombre n ́egligeable de d ́ecalages, c-`a-d.
+tableau d ́ej`a presque tri ́e) elle est lin ́eaire.
+Exercice 6.5.2En supposant que seul les comparaisons ont un coˆut non-
+n ́egligeable (justifi ́e si l’on utilise une liste dynamique au lieu du tableau, per-
+mettant une insertion sans d ́ecalage),  ́etudier la complexit ́e du tri par insertion
+am ́elior ́e, utilisant une recherche dichotomique pour trouver la place o`u il faut
+ins ́erer l’ ́el ́ementt[i].
+Comparer au tri par insertion simple, pourn= 100 000.
+Indication : on passe `ac
+am ́elior ́e
+(n) =
+∑
+log
+2
+(i−1)∼nlog
+2
+(n). Le rapport avec
+c
+simple
+(n)∼
+1
+2
+n
+2
+est5×10
+4
+/log
+2
+(10
+5
+)≈3010.
+6.5.1  S ́egmentation d’un tableau
+Dans un premier temps, on souhaite diviser une zonet[g..d] d’un tableaut
+en deux partiest[g..i−1] ett[i..d] telles que tous les  ́el ́ements de la premi`ere
+zone soient inf ́erieurs `a tous les  ́el ́ements de la deuxi`eme zone. Cela n ́ecessitera
+en g ́en ́eral des permutations de certains  ́el ́ements. En voici l’algorithme :
+/* Initialisation. (On suppose g < d.) */
+v <- t[d] ; i <- g ; j <- d
+/* Boucle 0 : Invariant I0 : (I1 et I2), voir ci-dessous */
+Tant que ( i < j )
+/* Boucle 1 : Invariant I1 : pour tout x de t[g..i-1], x <= v */
+Tant que ( i <= j et t[i] <= v )
+i <- i+1  /* on cherche le premier element > v */
+Fin tant que /* fin de boucle 1 */
+/* Boucle 2 : Invariant I2 : pour tout x de t[j+1..d], x >= v */
+Tant que ( i <= j et t[j] >= v )
+j <- j-1  /* on cherche le dernier element < v */
+Fin tant que /* fin de boucle 2 */
+Si ( i < j ) /* ce cas se produit, si
+l’element i dans [g..j-1] est superieur a v,
+ET l’element j dans [i+1..d] est inferieur a v */
+permuter t[i] et t[j]
+/* ainsi maintenant t[i] < v < t[j]
+25
+
+et la boucle 1 suivante augmentera i d’au moins 1 */
+Fin si
+Fin tant que /* fin de boucle 0 */
+/* les zones t[g..i-1] et t[i..d] verifient alors la propriete souhaitee
+(N.B.: on peut en effet avoir j=i-1 (c-a-d. j<i) ou alors j=i.) */
+6.5.2  Tri par segmentation
+Ayant ainsi segment ́e le tableau en deux parties d’ ́el ́ements tous inf ́erieurs,
+dans la zone gauche, `a tous ceux de la zone droite, on applique (de mani`ere
+r ́ecursive) le mˆeme algorithme aux deux moiti ́es, jusqu’`a ce que la zone `a trier
+ne contient plus qu’un seul  ́el ́ement. Le but est alors atteint, c-`a-d. le tableau
+est tri ́e dans sa globalit ́e.
+Cette proc ́edure est un cas particulier de la m ́ethode g ́en ́erale de “diviser
+pour r ́egner” (voir ci-dessous). Si la coupure se fait en moyenne au milieu du
+tableau, le tempsTn ́ecessaire pour trier un tableau de taillenv ́erifie l’ ́equation
+T(n) = 2T(n/2) +f(n), o`uf(n) est le temps n ́ecessaire pour la segmentation.
+6.6  M ́ethode “diviser pour r ́egner”
+Si on divise un traitement dendonn ́ees dans un tempsf(n) en un nombre
+ade tˆaches portant surn/bdonn ́ees (avec g ́en ́eralementa≥b,mais souvent
+a=b), alors le temps d’execution de l’algorithme v ́erifie
+T(n) =a T(n/b) +f(n).
+L’int ́erˆet de ceci est cons ́equence du r ́esultat suivant :
+Theorme 6.2SoitT(n) =a T(n/b) +f(n), aveca, b≥1. Dans ce cas,
+1. sif(n) =O(n
+log
+b
+a−d
+)avecd >0, alorsT(n) = Θ(n
+log
+b
+a
+),
+2. sif(n) = Θ(n
+log
+b
+a
+), alorsT(n) = Θ(n
+log
+b
+a
+logn),
+3. sif(n) = Ω(n
+log
+b
+a+d
+)eta f(n/b)≤cf(b), avecd  >0, c  <1, alors
+T(n) = Θ(f(n)).
+Dans le dernier cas,fest la partie la plus coˆuteuse, on ne peut donc esp ́erer
+mieux que l’ ́equivalence (grossi`ere) donn ́ee (il est plutˆot agr ́eablement surpre-
+nant que les executions r ́ecursives defne modifient pas l’echelle) ; dans les deux
+autres cas, lorsquefest domin ́e par une  ́echelle en puissancen
+log
+b
+a
+(avec un
+exposant en g ́en ́eral proche de 1, ce cas (lin ́eaire)  ́etant atteint poura=b), alors
+Test essentiellement de cette mˆeme complexit ́e, consid ́er ́ee comme rapide.
+Exemple 6.3Pour le tri par segmentation, en supposant encore que la coupure
+se fasse (en moyenne) au milieu du tableau, on aa=b= 2etf(n) = Θ(n)
+(on comparev`a chacun des  ́el ́ements ; au pire des cas, il faut en plus faire la
+permutation `a chaque fois), d’o`uT(n) =O(nlogn).
+FIN
+26
