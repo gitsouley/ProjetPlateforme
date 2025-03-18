@@ -6,10 +6,10 @@ const path = require("path");
 require("dotenv").config();
 const fs = require('fs');
 const db = require("./db"); // Importation de la connexion MySQL
-
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use("/uploads", express.static("uploads"));
 
 
 //configuration de multer pour stocké les fichiers dans le dossier /uploads
@@ -121,13 +121,18 @@ app.post("/login", (req, res) => {
 
 
 // Récupérer la liste des examens publiés avec le nom du professeur pour eleve
+
 app.get("/api/exams", (req, res) => {
   const sql = `
-    SELECT e.idExamen AS id, e.titre AS title, e.fichier AS fileUrl, 
-           e.publie, COALESCE(ens.nom, 'Inconnu') AS teacher 
-    FROM Examen e
-    LEFT JOIN Enseignant ens ON e.idEnseignant = ens.idEnseignant
-    WHERE e.publie = 1
+  SELECT e.idExamen AS id, 
+    e.titre AS title, 
+    e.fichier AS fileUrl, 
+    e.publie, 
+    CONCAT(ens.prenom, ' ', ens.nom) AS teacher
+  FROM Examen e
+  LEFT JOIN Enseignant ens ON e.idEnseignant = ens.idEnseignant
+  WHERE e.publie = 1;
+
   `;
 
   db.query(sql, (err, results) => {
@@ -138,7 +143,6 @@ app.get("/api/exams", (req, res) => {
     res.json(results);
   });
 });
-
 
 
 

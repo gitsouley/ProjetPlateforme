@@ -10,7 +10,7 @@ const ExamList = () => {
       try {
         const response = await fetch("http://localhost:5000/api/exams");
         const data = await response.json();
-        console.log("✅ Examens reçus de l'API :", data);
+        console.log("✅ Examens reçus de l'API:", data);
         setExams(data);
       } catch (error) {
         console.error("❌ Erreur lors du chargement des examens", error);
@@ -35,7 +35,10 @@ const ExamList = () => {
           {exams.map((exam) => (
             <li key={exam.id} className="mb-4 border p-4 rounded">
               <span className="font-semibold">{exam.title}</span> - {exam.teacher}
-              <a href={exam.fileUrl} download className="ml-4 text-blue-500 underline">
+              <a href={exam.fileUrl} download className="ml-4 text-blue-500 underline"
+                target="_blank"
+                rel="noopener noreferrer"
+                >
                 Télécharger
               </a>
               <SoumetExam examId={exam.id} />

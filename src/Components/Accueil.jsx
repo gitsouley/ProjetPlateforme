@@ -45,6 +45,7 @@ function Accueil() {
         </div>
       </motion.section>
 
+
       {/* Options */}
       <section style={styles.optionSection}>
         <div style={styles.optionContainer}>
